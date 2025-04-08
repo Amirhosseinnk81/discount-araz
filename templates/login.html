@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم تخفیف ویژه - هتل لوکس آراز</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --success: #27ae60;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #dfe6e9 100%);
+            min-height: 100vh;
+            font-family: 'Vazirmatn', sans-serif;
+            color: var(--dark);
+        }
+        
+        .auth-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .auth-card {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .auth-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .auth-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+            transform: rotate(30deg);
+            opacity: 0.5;
+            animation: shine 6s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: rotate(30deg) translate(-30%, -30%);
+            }
+            100% {
+                transform: rotate(30deg) translate(30%, 30%);
+            }
+        }
+        
+        .hotel-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .form-control {
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-size: 0.95rem;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            border: none;
+            border-radius: 12px;
+            padding: 1rem;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-primary::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        
+        .btn-primary:hover::after {
+            opacity: 1;
+            transform: rotate(30deg) translate(20%, 20%);
+        }
+        
+        .discount-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .discount-card:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .discount-code {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #dfe6e9 100%);
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            display: inline-block;
+            border: 2px dashed var(--secondary);
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .discount-code:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .discount-code::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient( to bottom right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, 0) 100%);
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        .floating-label {
+            position: relative;
+            margin-bottom: 1.75rem;
+        }
+        
+        .floating-label label {
+            position: absolute;
+            top: 0.8rem;
+            right: 1.2rem;
+            color: var(--gray);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            pointer-events: none;
+            background: white;
+            padding: 0 0.5rem;
+            font-size: 0.95rem;
+        }
+        /* استایل‌های مخصوص input-group */
+        
+        .input-group {
+            position: relative;
+        }
+        
+        .input-group .floating-label label {
+            right: 50px;
+        }
+        
+        .input-group input:focus+label,
+        .input-group input:not(:placeholder-shown)+label {
+            top: -0.7rem;
+            right: 30px;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            background: linear-gradient(to bottom, #ffffff 50%, #f8f9fa 50%);
+            padding: 0 0.5rem;
+        }
+        
+        .floating-label input:focus+label,
+        .floating-label input:not(:placeholder-shown)+label {
+            top: -0.7rem;
+            right: 0.8rem;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            background: linear-gradient(to bottom, #ffffff 50%, #f8f9fa 50%);
+            padding: 0 0.5rem;
+        }
+        
+        .hotel-features {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0 0;
+        }
+        
+        .feature-badge {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-badge:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-radius: 12px 0 0 12px !important;
+            border-right: none;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group:hover .input-group-text {
+            background-color: #e9f5fe;
+        }
+        
+        .input-group .form-control {
+            border-radius: 0 12px 12px 0 !important;
+            border-right: 1px solid #e0e0e0;
+            border-left: none;
+        }
+        
+        .alert {
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .alert:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite alternate;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--gray);
+            margin: 1.5rem 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .divider::before {
+            margin-right: 1rem;
+        }
+        
+        .divider::after {
+            margin-left: 1rem;
+        }
+        
+        @media (max-width: 576px) {
+            .auth-wrapper {
+                padding: 1rem;
+            }
+            .auth-header {
+                padding: 1.5rem 1rem;
+            }
+            .hotel-logo {
+                font-size: 2.5rem;
+            }
+            .discount-code {
+                font-size: 1.2rem;
+                padding: 0.5rem 1rem;
+            }
+            /* تنظیمات ریسپانسیو برای input-group */
+            .input-group .floating-label label {
+                right: 40px;
+            }
+            .input-group input:focus+label,
+            .input-group input:not(:placeholder-shown)+label {
+                right: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="pulse">
+                    <i class="bi bi-stars hotel-logo"></i>
+                </div>
+                <h3 class="mt-2 mb-1 fw-bold">هتل پنج ستاره آراز</h3>
+
+                <div class="hotel-features">
+                    <span class="feature-badge">
+                        <i class="bi bi-wifi"></i> وای‌فای رایگان
+                    </span>
+                    <span class="feature-badge">
+                        <i class="bi bi-cup-hot"></i> صبحانه بوفه
+                    </span>
+                    <span class="feature-badge">
+                        <i class="bi bi-geo-alt"></i> موقعیت ممتاز
+                    </span>
+                </div>
+            </div>
+            <div class="p-4 p-md-5">
+                {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show d-flex align-items-center mb-4">
+                    <i class="bi {% if category == 'success' %}bi-check-circle-fill{% else %}bi-exclamation-triangle-fill{% endif %} me-2"></i>
+                    <div>{{ message }}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %} {% endif %} {% endwith %}
+
+                <form method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="floating-label">
+                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder=" " required value="{{ user.first_name if user else '' }}">
+                                <label for="first_name">نام</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="floating-label">
+                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder=" " required value="{{ user.last_name if user else '' }}">
+                                <label for="last_name">نام خانوادگی</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="floating-label">
+                                <input type="text" class="form-control" name="national_id" id="national_id" pattern="[0-9]{10}" title="کد ملی باید 10 رقمی باشد" placeholder=" " required value="{{ user.national_id if user else '' }}">
+                                <label for="national_id">کد ملی</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="floating-label">
+                                <div class="input-group">
+                                    <span class="input-group-text">+98</span>
+                                    <input type="tel" class="form-control" name="phone" id="phone" pattern="09[0-9]{9}" title="شماره تماس باید با 09 شروع شود و 11 رقمی باشد" placeholder=" " required value="{{ user.phone if user else '' }}">
+                                    <label for="phone">شماره تماس</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold">
+                                <i class="bi bi-check-circle-fill me-2"></i> 
+                                {% if user %}بروزرسانی اطلاعات{% else %}ثبت اطلاعات{% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                {% if user %}
+                <div class="mt-4 p-4 discount-card">
+                    <h5 class="d-flex align-items-center text-primary mb-3">
+                        <i class="bi bi-person-badge me-2"></i> اطلاعات کاربری
+                    </h5>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="text-muted small">نام کامل:</div>
+                            <div class="fw-bold">{{ user.first_name }} {{ user.last_name }}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-muted small">کد ملی:</div>
+                            <div class="fw-bold">{{ user.national_id }}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-muted small">شماره تماس:</div>
+                            <div class="fw-bold">{{ user.phone }}</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        {% if user.discount_code %}
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-gift-fill me-2 text-success"></i>
+                            <h5 class="mb-0 text-success">کد تخفیف شما</h5>
+                        </div>
+                        <div class="text-center my-4">
+                            <span class="discount-code pulse" id="discount-code">{{ user.discount_code }}</span>
+                        </div>
+                        <div class="alert alert-info border-0">
+                            <div class="d-flex">
+                                <i class="bi bi-info-circle-fill me-2 mt-1 flex-shrink-0"></i>
+                                <div>
+                                    <p class="mb-2">با استفاده از این کد از <strong class="text-success">۳۲٪ تخفیف</strong> در رزرو اتاق‌های هتل لوکس آراز بهره‌مند شوید.</p>
+                                    <p class="mb-2">لطفا کد تخفیف را در صفحه <a href="https://araz-hotels.iibooking.com/" target="_blank" class="fw-bold text-decoration-none">رزرو هتل آراز</a> وارد نمایید.</p>
+                                    <div class="d-flex align-items-center text-muted small">
+                                        <i class="bi bi-clock-history me-1"></i>
+                                        <span>این کد یکبار مصرف است.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i> در حال حاضر کد تخفیفی برای شما فعال نشده است
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // فعال کردن labelهای شناور
+        document.querySelectorAll('.floating-label input').forEach(input => {
+            const label = input.nextElementSibling;
+
+            input.addEventListener('focus', () => {
+                label.style.color = '#3498db';
+                label.style.transition = 'all 0.3s ease';
+            });
+
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    label.style.color = '#95a5a6';
+                }
+            });
+
+            // مقداردهی اولیه برای حالت‌هایی که مقدار از قبل وجود دارد
+            if (input.value) {
+                label.style.top = '-0.7rem';
+                label.style.right = '0.8rem';
+                label.style.fontSize = '0.8rem';
+                label.style.color = '#3498db';
+                label.style.background = 'linear-gradient(to bottom, #ffffff 50%, #f8f9fa 50%)';
+            }
+        });
+
+        // امکان کپی کردن کد تخفیف با افکت
+        const discountCode = document.getElementById('discount-code');
+        if (discountCode) {
+            discountCode.addEventListener('click', function() {
+                navigator.clipboard.writeText(this.textContent.trim())
+                    .then(() => {
+                        const originalText = this.textContent;
+
+                        // افکت کپی موفق
+                        this.style.transition = 'all 0.3s ease';
+                        this.style.backgroundColor = '#e8f5e9';
+                        this.style.transform = 'scale(1.05)';
+                        this.textContent = 'کد کپی شد!';
+
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                            this.style.backgroundColor = '';
+                            this.style.transform = '';
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.error('خطا در کپی کردن کد: ', err);
+                    });
+            });
+
+            discountCode.title = 'کلیک برای کپی کردن کد';
+        }
+
+        // افکت hover برای کارت
+        const authCard = document.querySelector('.auth-card');
+        authCard.addEventListener('mouseenter', () => {
+            authCard.style.transform = 'translateY(-5px) scale(1.01)';
+        });
+
+        authCard.addEventListener('mouseleave', () => {
+            authCard.style.transform = '';
+        });
+    </script>
+</body>
+
+</html>

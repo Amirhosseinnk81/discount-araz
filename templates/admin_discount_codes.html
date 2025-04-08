@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت کدهای تخفیف - هتل آراز</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">مدیریت کدهای تخفیف</a>
+            <div class="navbar-nav">
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-link me-3">
+                    <i class="bi bi-arrow-right"></i> بازگشت
+                </a>
+                <a href="{{ url_for('admin_logout') }}" class="nav-link">
+                    <i class="bi bi-box-arrow-left"></i> خروج
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-list-ul"></i> لیست کدهای تخفیف
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>کد تخفیف</th>
+                                        <th>وضعیت</th>
+                                        <th>درصد تخفیف</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for code in discount_codes %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td class="fw-bold">{{ code.code }}</td>
+                                        <td>
+                                            <span class="badge bg-{% if code.is_used %}danger{% else %}success{% endif %}">
+                                                {% if code.is_used %}استفاده شده{% else %}فعال{% endif %}
+                                            </span>
+                                        </td>
+                                        <td>{{ code.discount_percent }}%</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-plus-circle"></i> اضافه کردن کدهای جدید
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('add_discount_codes') }}">
+                            <div class="mb-3">
+                                <label class="form-label">کدهای تخفیف (هر خط یک کد)</label>
+                                <textarea class="form-control" name="codes" rows="10" required>identendo48153
+identendo65738
+identendo41786
+identendo86139
+identendo35262
+identendo38961
+identendo68261
+identendo83918
+identendo39735
+identendo55656
+identendo28232
+identendo14374
+identendo53476
+identendo22286
+identendo97155
+identendo97422
+identendo56982
+identendo53454
+identendo35397
+identendo49468
+identendo28819
+identendo77932
+identendo82271
+identendo36921
+identendo46917
+identendo91319
+identendo35223
+identendo25674
+identendo79895
+identendo45644
+identendo15866
+identendo53817
+identendo63612
+identendo48743
+identendo24935
+identendo42549
+identendo62879
+identendo74613
+identendo51317
+identendo74376
+identendo18524
+identendo87439
+identendo22922
+identendo92949
+identendo71829
+identendo92497
+identendo25652
+identendo28999
+identendo76859
+identendo27497
+identendo66228
+identendo39677
+identendo21946
+identendo99998
+identendo92643
+identendo63329
+identendo78867
+identendo94114
+identendo98387
+identendo59226
+identendo51634
+identendo78329
+identendo74586
+identendo59728
+identendo89391
+identendo81325
+identendo27632
+identendo94328
+identendo39261
+identendo58412
+identendo51154
+identendo19279
+identendo33755
+identendo82691
+identendo89348
+identendo44241
+identendo13214
+identendo91516
+identendo47675
+identendo87398
+identendo13246
+identendo56373
+identendo15817
+identendo41461
+identendo11867
+identendo91641
+identendo94336
+identendo97955
+identendo52513
+identendo93858
+identendo42142
+identendo37386
+identendo89942
+identendo95421
+identendo17665
+identendo94662
+identendo19653
+identendo75857
+identendo68328
+identendo56311
+identendo27233
+identendo43129
+identendo62914
+identendo56798
+identendo96254
+identendo47123
+identendo66816
+identendo26434
+identendo34953
+identendo84893
+identendo71211
+identendo51971
+identendo52329
+identendo43159
+identendo19933
+identendo16152
+identendo54345
+identendo89189
+identendo95898
+identendo84822
+identendo58196
+identendo81638
+identendo47249
+identendo56938
+identendo71282
+identendo85217
+identendo89867
+identendo49376
+identendo15297
+identendo54931
+identendo32561
+identendo34598
+identendo79256
+identendo47934
+identendo99151
+identendo33261
+identendo38154
+identendo39493
+identendo64531
+identendo84259
+identendo22512
+identendo33266
+identendo44777
+identendo32226
+identendo95787
+identendo36862
+identendo35921
+identendo93343
+identendo55264
+identendo51127
+identendo17746
+identendo52695
+identendo48129
+identendo17749
+identendo28927
+identendo49798
+identendo31324
+identendo25937
+identendo56167
+identendo22935
+identendo34868
+identendo87842
+identendo58369
+identendo27859
+identendo62955
+identendo58443
+identendo15396
+identendo28147
+identendo76477
+identendo44643
+identendo81299
+identendo21798
+identendo49769
+identendo31584
+identendo97262
+identendo61947
+identendo53699
+identendo62591
+identendo99278
+identendo78613
+identendo48289
+identendo23895
+identendo28233
+identendo23726
+identendo65645
+identendo79319
+identendo42182
+identendo79829
+identendo71442
+identendo43111
+identendo15996
+identendo98684
+identendo67812
+identendo58713
+identendo42195
+identendo45715
+identendo56792
+identendo24182
+identendo28259</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="bi bi-save"></i> ذخیره کدها
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
